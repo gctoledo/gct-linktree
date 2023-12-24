@@ -18,6 +18,8 @@ import {
   updateDoc,
 } from "firebase/firestore";
 
+import { toast } from "react-toastify";
+
 export interface LinkProps {
   id: string;
   name: string;
@@ -66,7 +68,7 @@ const Admin = () => {
     e.preventDefault();
 
     if (nameInput === "" || urlInput === "") {
-      alert("Preencha todos os campos");
+      toast.error("Preencha todos os campos");
       return;
     }
 
@@ -80,13 +82,14 @@ const Admin = () => {
         color: textColorInput,
       })
         .then(() => {
-          console.log("Atualizado com sucesso");
+          toast.success("Atualizado com sucesso");
           setNameInput("");
           setUrlInput("");
           setUpdating(false);
           setUpdatingID("");
         })
         .catch((e) => {
+          toast.error("Ocorreu um erro!");
           console.log("ERRO AO ATUALIZAR: " + e);
         });
     } else {
@@ -98,11 +101,12 @@ const Admin = () => {
         created: new Date(),
       })
         .then(() => {
-          console.log("Cadastrado com sucesso");
+          toast.success("Cadastrado com sucesso");
           setNameInput("");
           setUrlInput("");
         })
         .catch((e) => {
+          toast.error("Ocorreu um erro!");
           console.log("ERRO AO CADASTRAR: " + e);
         });
     }
@@ -111,6 +115,7 @@ const Admin = () => {
   const deleteLink = async (id: string) => {
     const docRef = doc(db, "links", id);
     await deleteDoc(docRef);
+    toast.success("Deletado com sucesso!");
   };
 
   const editLink = (link: LinkProps) => {

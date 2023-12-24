@@ -7,6 +7,8 @@ import Input from "../../components/Input";
 import { auth } from "../../services/firebaseConnection";
 import { signInWithEmailAndPassword } from "firebase/auth";
 
+import { toast } from "react-toastify";
+
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -17,7 +19,7 @@ const Login = () => {
     event.preventDefault();
 
     if (email === "" || password === "") {
-      alert("Preencha todos os campos");
+      toast.error("Preencha todos os campos");
       return;
     }
 
@@ -26,6 +28,7 @@ const Login = () => {
         navigate("/admin", { replace: true });
       })
       .catch((e) => {
+        toast.error("Ocorreu um erro!");
         console.log("ERROR: " + e);
       });
   };

@@ -7,6 +7,8 @@ import { db } from "../../services/firebaseConnection";
 
 import { setDoc, doc, getDoc } from "firebase/firestore";
 
+import { toast } from "react-toastify";
+
 const Networks = () => {
   const [instagram, setInstagram] = useState("");
   const [linkedin, setLinkedin] = useState("");
@@ -38,9 +40,10 @@ const Networks = () => {
       linkedin: linkedin,
     })
       .then(() => {
-        console.log("CADASTRADO COM SUCESSO");
+        toast.success("Atualizado com sucesso");
       })
       .catch((e): void => {
+        toast.error("Ocorreu um erro!");
         console.log(e);
       });
   };
