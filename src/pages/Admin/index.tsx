@@ -18,7 +18,7 @@ import {
   updateDoc,
 } from "firebase/firestore";
 
-interface LinkProps {
+export interface LinkProps {
   id: string;
   name: string;
   url: string;
